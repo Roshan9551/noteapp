@@ -1,0 +1,14 @@
+1. git init
+2. git add .
+3. git commit -m "Message"
+4. create a repository in github without readme file.
+5. git remote add origin https://github.com/Roshan9551/project-roadmap-generator.git
+6. changing the branch to main from master by: git brach -M main
+7. git push -u origin main
+
+
+
+// git commands to add to git after you open vs code for next time 
+1. git add .
+2. git commmit -m "Message"
+3. git push -u origin main
