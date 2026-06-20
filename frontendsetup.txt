@@ -1,0 +1,18 @@
+npm create vite@latest . -- --template react
+
+if tailwind css occurs:
+npm install tailwindcss @tailwindcss/postcss postcss autoprefixer
+
+
+// remaining installations:
+npm install axios react-router-dom zustand lucide-react
+
+1. axios: for API calls to your backend
+2. react-router-dom: for page navigation (login → home)
+3. zustand: for global state (user, token, notes)
+4. lucid-react:  for icons
+
+
+
+// init shadcn:
+npx shadcn@latest init
