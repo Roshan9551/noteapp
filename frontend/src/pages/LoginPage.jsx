@@ -28,7 +28,7 @@ const LoginPage = () => {
         setError("");
 
         try{
-            const response = await axiosInstance.post("/users/login", formData);
+            const response = await axiosInstance.post("/auth/login", formData);
             login(response.data.user, response.data.token);
             navigate("/");
         }catch(err){

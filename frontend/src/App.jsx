@@ -1,25 +1,45 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import useAuthStore from "./store/useAuthStore.js";
-import LoginPage from "./pages/LoginPage.jsx";
+import { useEffect } from "react";
+import useAuthStore from "./store/useAuthStore";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import HomePage from "./pages/HomePage";
+import axiosInstance from "./lib/axios";
 
 function App() {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, login, logout } = useAuthStore();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axiosInstance.get("/auth/me");
+        login(res.data.user, localStorage.getItem("token"));
+      } catch (err) {
+        logout();
+      }
+    };
+
+    if (localStorage.getItem("token")) {
+      fetchUser();
+    }
+  }, []);
 
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<div>Signup Page</div>} />
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />}
+      />
+      <Route
+        path="/signup"
+        element={isAuthenticated ? <Navigate to="/" /> : <SignupPage />}
+      />
       <Route
         path="/"
-        element={
-          isAuthenticated ? <div>Home Page</div> : <Navigate to="/login" />
-        }
+        element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
       />
     </Routes>
   );
 }
 
 export default App;
-// BrowserRouter => wraps your entire app and enables routing
-// Routes and Route — defines which component shows at which URL
-// Navigate to="/login" — if user is not logged in and tries to go to / it automatically redirects them to login
